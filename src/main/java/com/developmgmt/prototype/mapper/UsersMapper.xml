@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developmgmt.prototype.mapper.UsersMapper">
+
+    <select id="selectUserById" resultType="users">
+        SELECT
+              ID
+            , USER_ID
+            , USER_NAME
+            , USER_PW
+          FROM users
+         WHERE ID = #{id}
+    </select>
+
+    <select id="selectUsers" resultType="users">
+        SELECT
+              ID
+            , USER_ID
+            , USER_NAME
+            , USER_PW
+          FROM users
+         WHERE USER_ID = #{userId}
+           AND USER_PW = #{userPw}
+    </select>
+
+    <select id="selectAllUsers" resultType="users">
+        SELECT /*UsersMapper.selectAllUsers 사용자 전체조회 20. 02. 24 김창수*/
+              ID
+             , USER_ID
+             , USER_NAME
+             , USER_PW
+        FROM users
+        WHERE 1=1
+        <if test="userId != null">
+            AND USER_ID = #{userId}
+        </if>
+    </select>
+
+    <insert id="insertUser">
+      INSERT INTO users (id, user_id, user_name, user_pw)
+      VALUES (#{id}, #{UserId}, #{UserName}, #{UserPw})
+    </insert>
+
+</mapper>
